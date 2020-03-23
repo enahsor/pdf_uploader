@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pdf Uploader</title>        
+        <meta charset="UTF-8">
+        <meta name="description" content="ACI Netsuite FileUploader">
+        <meta name="keywords" content="ACI, Netsuite, File, PDF, Uploader">
+        <meta name="author" content="Dowen Robinson">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Inter|Sen&display=swap');
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                
+            }
+            body{
+                min-height: 100vh;
+                min-width: 100vw;
+                display: flex;
+                justify-content: center;
+                scroll-behavior: smooth;
+                text-rendering: optimizeSpeed;
+                line-height: 1.5;
+                background-color: black;
+                color: white;
+                font-family: 'Inter', sans-serif;
+            }
+            body h1{
+                text-align: center;
+                text-transform: uppercase;
+                margin:40px;
+            }
+            form{
+                height: 500px;
+                width: 100%;
+                font-family: 'Sen', sans-serif;
+                align-self: center;
+                justify-content: space-evenly;
+                background-color: white;
+                color: black;
+                display: flex;
+                flex-direction: column;                
+                transition: 1s;
+                border-radius: 10px;
+            }
+            input{
+                font: inherit;
+                border: none;
+            }
+            div.fileGroup{
+                display: flex;
+                flex-direction: column;
+                margin: 40px;
+            }
+
+            .fileGroup label{
+                border: 3px dashed #922229;
+                color: black;
+                min-height: 200px;
+                border-radius: 10px;
+                font-weight: bold;
+                text-align: center;
+                cursor: pointer;
+                padding: 20px;
+                transition: 2s;
+            }
+
+            .fileSize{
+                font-weight: bold;
+            }
+            .fileName{
+                font-size: 20px;
+            }
+
+            form input[type=button]{
+                background-color:#801920;
+                color: white;
+                cursor: pointer;                
+                margin: 40px;
+                padding: 20px;
+                font-size: 20px;
+                text-transform: uppercase;
+                transition: 1.5s;
+            }
+
+            form input[type=button]:hover{
+                background-color:#922229;                
+            }
+
+            form input[type=button]:focus{
+                outline: none;
+            }
+
+            .container{
+                display: flex;
+                flex-direction: column;
+                flex-basis: 700px;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <div class="container"> 
+        <h1>File Uploader</h1>     
+            <form class="fileUploader">
+                <div class="fileGroup">                   
+                    <input type="file" id="file" class="file" accept=".pdf" name="file" style="display: none;"/>
+                    <label for="file" class="fileName">Click to select file</label>
+                    <span class="fileSize"></span>
+                </div>
+                
+                <input type="button" class="submitBtn" value="Submit"/>
+            </form>
+        </div>
+            <script>
+                let fileSelector = document.querySelector(".file");
+                let submitBtn = document.querySelector(".submitBtn");
+                let fileName = document.querySelector(".fileName");
+                let fileSize = document.querySelector(".fileSize");
+                
+                fileSelector.addEventListener("change", (event) => {
+                    let currentFile = fileSelector.files[0]
+                    fileName.innerHTML =  currentFile.name;
+                    fileSize.innerHTML = `${(currentFile.size/(1024*1024)).toFixed(2)} MB`;
+                });
+
+                submitBtn.addEventListener("click", (event) => {
+
+                    let selectedFile = fileSelector.files;
+                    if (selectedFile.length > 0){
+                        console.log(selectedFile[0])
+                        let fileToLoad = selectedFile[0];
+                        let fileName = fileToLoad.name;
+                        let fileType = fileToLoad.type;
+                        let fileReader = new FileReader();
+                        let fileContent;
+                        let emptyBody = {}
+                        let url = `url_location`
+
+                        fileReader.onload = (fileLoadedEvent) => {
+                            fileContent = fileLoadedEvent.target.result;
+                            fetch(url, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: emptyBody
+                            })
+                            
+                        }
+
+                        fileReader.readAsDataURL(fileToLoad);
+                        
+                    }
+                    else{
+                        fileName.innerHTML = "Please select a file."
+                    }
+                })
+                
+            </script>
+    </body>
+</html>
