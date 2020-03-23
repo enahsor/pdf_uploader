@@ -1,0 +1,27 @@
+{
+  "name": "pdf_uploader",
+  "version": "1.0.0",
+  "description": "Backend for pdf_uploader",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enahsor/pdf_uploader.git"
+  },
+  "keywords": [
+    "pdf",
+    "uploader",
+    "frontend"
+  ],
+  "author": "Dowen Robinson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enahsor/pdf_uploader/issues"
+  },
+  "homepage": "https://github.com/enahsor/pdf_uploader#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
