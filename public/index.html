@@ -32,9 +32,10 @@
                 text-align: center;
                 text-transform: uppercase;
                 margin:40px;
+                margin-bottom: 10px;
             }
             form{
-                height: 500px;
+                
                 width: 100%;
                 font-family: 'Sen', sans-serif;
                 align-self: center;
@@ -79,6 +80,7 @@
                 color: white;
                 cursor: pointer;                
                 margin: 40px;
+                margin-top: 10px;
                 padding: 20px;
                 font-size: 25px;
                 font-weight: bold;
@@ -97,7 +99,8 @@
             .container{
                 display: flex;
                 flex-direction: column;
-                flex-basis: 700px;
+                flex-basis: 30%;
+                
             }
 
             .attn{
@@ -110,7 +113,6 @@
     </head>
     <body>
         <div class="container"> 
-        <h1>File Uploader</h1>     
             <form class="fileUploader">
                 <div class="fileGroup">                   
                     <input type="file" id="file" class="file" accept=".pdf" name="file" style="display: none;"/>
